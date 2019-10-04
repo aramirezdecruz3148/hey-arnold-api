@@ -1,6 +1,5 @@
 //need to also make a data-helper.js file in this folder
 //both will be responsible for seeding the database for testing locally
-//I will use the 
 
 //then I can begin building my models and routes and implement
 //my data-helper within my testing suites
