@@ -1,10 +1,23 @@
-//need to also make a data-helper.js file in this folder
-//both will be responsible for seeding the database for testing locally
+const Character = require('../lib/models/Character');
+const { getCharacterDetails } = require('../lib/services/character-details');
 
-//then I can begin building my models and routes and implement
-//my data-helper within my testing suites
+module.exports = async() => {
+  const createdCharacters = await Character.create(
+    Promise.resolve(getCharacterDetails())
+      .then(characters => {
+        characters.map(character => ({
+          name: character.name,
+          image: character.image
+        }));
+      })
+  );
 
-//then once I deploy to heroku I can make another seed
+  return {
+    createdCharacters
+  };
+};
+
+//once I deploy to heroku I can make another seed
 //data file at the root that will connect with my deployed database
 //it will look something like this:
 
