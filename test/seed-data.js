@@ -4,10 +4,10 @@ const { getCharacterDetails } = require('../lib/services/character-details');
 module.exports = async() => {
   const createdCharacters = await Character.create(
     Promise.resolve(getCharacterDetails())
-      .then(characters => {
-        characters.map(character => ({
-          name: character.name,
-          image: character.image
+      .then(characterDetails => {
+        return characterDetails.map(characterDetail => ({
+          name: characterDetail.name,
+          image: characterDetail.image
         }));
       })
   );
