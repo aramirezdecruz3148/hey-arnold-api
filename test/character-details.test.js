@@ -4,8 +4,7 @@ describe('character-detail tests', () => {
   it('it gets a list of character details { name:, image: }', () => {
     return getCharacterDetails()
       .then(data => {
-        console.log(data);
-        expect(data).toHaveProperty('name');
+        expect(data).toHaveLength(4);
       });
   });
 });
