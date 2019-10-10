@@ -21,4 +21,16 @@ describe('character route tests', () => {
         expect(res.body).toHaveLength(218);
       });
   });
+
+  it('can get a character by id', () => {
+    return request(app)
+      .get('/api/v1/characters/5d9e9e139cd4f680f3ec671c')
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: '5d9e9e139cd4f680f3ec671c',
+          name: 'Dino Spumoni',
+          image: 'https://vignette.wikia.nocookie.net/heyarnold/images/9/90/Dino_Spumoni.png/revision/latest/scale-to-width-down/310?cb=20171212070505'
+        });
+      });
+  });
 });
