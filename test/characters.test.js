@@ -33,4 +33,24 @@ describe('character route tests', () => {
         });
       });
   });
+
+  it('can get one random character', () => {
+    return request(app)
+      .get('/api/v1/characters/random')
+      .then(res => {
+        expect(res.body).toEqual([{
+          _id: expect.any(String),
+          name: expect.any(String),
+          image: expect.any(String)
+        }]);
+      });
+  });
+
+  it('can get 5 random character', () => {
+    return request(app)
+      .get('/api/v1/characters/random?count=5')
+      .then(res => {
+        expect(res.body).toHaveLength(5);
+      });
+  });
 });
