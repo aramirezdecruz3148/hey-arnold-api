@@ -13,12 +13,29 @@ describe('character route tests', () => {
     return mongoose.connection.close();
   });
 
-  it('can get an array of character details', () => {
+  it('can get an array of 20 characters', () => {
     return request(app)
       .get('/api/v1/characters')
       .then(res => {
-        expect(res.body).toContainEqual({ _id: expect.any(String), name: expect.any(String), image: expect.any(String) });
-        expect(res.body).toHaveLength(218);
+        expect(res.body).toHaveLength(20);
+        expect(res.body).toContainEqual(
+          { _id: expect.any(String), 
+            name: expect.any(String), 
+            image: expect.any(String) 
+          });
+      });
+  });
+
+  it('can return characters based on name query', () => {
+    return request(app)
+      .get('/api/v1/characters?name=Arnie')
+      .then(res => {
+        expect(res.body).toHaveLength(1);
+        expect(res.body).toContainEqual({
+          _id: '5d9e9e139cd4f680f3ec6697',
+          name: 'Arnie',
+          image: 'https://vignette.wikia.nocookie.net/heyarnold/images/4/42/Arnie.jpg/revision/latest/scale-to-width-down/310?cb=20110109195825'
+        });
       });
   });
 
