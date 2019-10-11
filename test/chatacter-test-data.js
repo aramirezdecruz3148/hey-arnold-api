@@ -1,6 +1,6 @@
 const Character = require('../lib/models/Character');
 
-const testData = [
+const characterData = [
   {
     '_id': '5d9e9e139cd4f680f3ec6693',
     'name': 'Arnold Shortman',
@@ -78,7 +78,7 @@ const testData = [
   }];
 
 module.exports = async() => {
-  const seedTestData = await testData.map(data => {
+  const seedTestData = await characterData.map(data => {
     return Character.create(data);
   });
   return seedTestData;

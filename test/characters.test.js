@@ -1,6 +1,5 @@
 require('dotenv').config();
 const request = require('supertest');
-// const connect = require('../lib/utils/connect');
 const mongoose = require('mongoose');
 const app = require('../lib/app');
 const characterData = require('./chatacter-test-data');
