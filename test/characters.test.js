@@ -3,12 +3,12 @@ const request = require('supertest');
 // const connect = require('../lib/utils/connect');
 const mongoose = require('mongoose');
 const app = require('../lib/app');
-const testData = require('./seed-data');
+const characterData = require('./chatacter-test-data');
 
 describe('character route tests', () => {
   beforeAll(() => {
     return mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
-      .then(() => testData());
+      .then(() => characterData());
   });
 
   afterAll(() => {

@@ -1,16 +1,16 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const { getCharacterDetails } = require('./lib/services/character-details');
-const Character = require('./lib/models/Character');
+const { getGIFS } = require('./lib/services/gif-links');
+const Gif = require('./lib/models/Gif');
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
-const seedData = () => {
-  return getCharacterDetails()
-    .then(characters => Character.create(characters))
+const seedGifs = () => {
+  return getGIFS()
+    .then(gifs => Gif.create(gifs))
     .then(() => console.log('done'))
     .finally(() => mongoose.connection.close())
     .catch(console.log);
 };
 
-seedData();
+seedGifs();
