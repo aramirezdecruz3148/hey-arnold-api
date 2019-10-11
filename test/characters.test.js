@@ -1,29 +1,19 @@
 require('dotenv').config();
 const request = require('supertest');
-const connect = require('../lib/utils/connect');
+// const connect = require('../lib/utils/connect');
 const mongoose = require('mongoose');
 const app = require('../lib/app');
+const testData = require('./seed-data');
 
 describe('character route tests', () => {
   beforeAll(() => {
-    connect();
+    return mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+      .then(() => testData());
   });
 
   afterAll(() => {
-    return mongoose.connection.close();
-  });
-
-  it('can get an array of 20 characters', () => {
-    return request(app)
-      .get('/api/v1/characters')
-      .then(res => {
-        expect(res.body).toHaveLength(20);
-        expect(res.body).toContainEqual(
-          { _id: expect.any(String), 
-            name: expect.any(String), 
-            image: expect.any(String) 
-          });
-      });
+    return mongoose.connection.dropDatabase()
+      .then(() => mongoose.connection.close());
   });
 
   it('can return characters based on name query', () => {
@@ -41,12 +31,12 @@ describe('character route tests', () => {
 
   it('can get a character by id', () => {
     return request(app)
-      .get('/api/v1/characters/5d9e9e139cd4f680f3ec671c')
+      .get('/api/v1/characters/5d9e9e139cd4f680f3ec6693')
       .then(res => {
         expect(res.body).toEqual({
-          _id: '5d9e9e139cd4f680f3ec671c',
-          name: 'Dino Spumoni',
-          image: 'https://vignette.wikia.nocookie.net/heyarnold/images/9/90/Dino_Spumoni.png/revision/latest/scale-to-width-down/310?cb=20171212070505'
+          _id: '5d9e9e139cd4f680f3ec6693',
+          name: 'Arnold Shortman',
+          image: 'https://vignette.wikia.nocookie.net/heyarnold/images/f/f5/Arnold.png/revision/latest?cb=20181027162333'
         });
       });
   });
