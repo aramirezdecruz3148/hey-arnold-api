@@ -22,4 +22,12 @@ describe('gif route tests', () => {
         expect(res.body).toHaveLength(49);
       });
   });
+
+  it('can return 4 random gifs', () => {
+    return request(app)
+      .get('/api/v1/gifs/random?count=4')
+      .then(res => {
+        expect(res.body).toHaveLength(4);
+      });
+  });
 });
