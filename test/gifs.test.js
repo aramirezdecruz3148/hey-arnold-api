@@ -1,21 +1,11 @@
-require('dotenv').config();
+const { getGifs } = require('./data-helper');
 const request = require('supertest');
-const mongoose = require('mongoose');
 const app = require('../lib/app');
-const gifData = require('./gif-test-data');
 
 describe('gif route tests', () => {
-  beforeAll(() => {
-    return mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
-      .then(() => gifData());
-  });
-
-  afterAll(() => {
-    return mongoose.connection.dropDatabase()
-      .then(() => mongoose.connection.close());
-  });
-
   it('can return array of gifs', () => {
+    // eslint-disable-next-line no-unused-vars
+    const gifs = getGifs();
     return request(app)
       .get('/api/v1/gifs')
       .then(res => {
@@ -32,12 +22,14 @@ describe('gif route tests', () => {
   });
 
   it('can get a gif by id', () => {
+    const gifById = getGifs()[0];
+    const parsedGif = JSON.parse(JSON.stringify(gifById));
     return request(app)
-      .get('/api/v1/gifs/5da11168f084caaf46011e1f')
+      .get(`/api/v1/gifs/${parsedGif._id}`)
       .then(res => {
         expect(res.body).toEqual({
-          _id: '5da11168f084caaf46011e1f',
-          gifLink: 'https://media.tenor.com/images/12661dbe02aab8bc2309328032d783b1/tenor.gif'
+          _id: parsedGif._id,
+          gifLink: parsedGif.gifLink
         });
       });
   });
