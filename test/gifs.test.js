@@ -30,4 +30,15 @@ describe('gif route tests', () => {
         expect(res.body).toHaveLength(4);
       });
   });
+
+  it('can get a gif by id', () => {
+    return request(app)
+      .get('/api/v1/gifs/5da11168f084caaf46011e1f')
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: '5da11168f084caaf46011e1f',
+          gifLink: 'https://media.tenor.com/images/12661dbe02aab8bc2309328032d783b1/tenor.gif'
+        });
+      });
+  });
 });
