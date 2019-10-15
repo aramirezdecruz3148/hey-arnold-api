@@ -1,3 +1,3 @@
-![]('./lib/assets/heyArnold.png')
+![]('./assets/heyArnold.png')
 Technologies used: Node.js, MongoDB, Mongoose, Cheerio, SuperTest, Jest
 
