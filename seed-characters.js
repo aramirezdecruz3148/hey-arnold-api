@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { getCharacterDetails } = require('./lib/services/character-details');
 const Character = require('./lib/models/Character');
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_CONNECTION, { useNewUrlParser: true });
 
 const seedCharacters = () => {
   return getCharacterDetails()
